@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:57:28 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 15:40:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:38:51 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	prompt_restauration(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_end_heredoc = -1;
 	}
 }
 

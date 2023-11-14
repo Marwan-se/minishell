@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 22:22:30 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 14:13:55 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:50:00 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	the_main_exec(t_listock *ls, t_gc **ad)
 {
+	if (g_end_heredoc == -1)
+	{
+		ls->sts->exit_status = 1;
+		g_end_heredoc = 0;
+	}
 	string_history_rdln(&(ls->str), ls->line, ad);
 	if (!check_syntax(ls->str, ls->sts))
 		main_exec(ls, ls->str, ls->sts, ad);
