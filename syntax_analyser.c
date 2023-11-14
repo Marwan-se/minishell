@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:57:21 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 16:07:22 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:57:17 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	check_end_op_pipe(char *str)
 	int	len;
 
 	len = ft_strlen1(str) - 1;
-	while (str[len] && (str[len] == ' ' || str[len] == '\t'))
+	while (len > 0 && str[len] && (str[len] == ' ' || str[len] == '\t'))
 		len--;
-	if (str[len] && (str[len] == '|' || str[len] == '>' || str[len] == '<'))
+	if (len > 0 && str[len] && (str[len] == '|' || \
+	str[len] == '>' || str[len] == '<'))
 		return (1);
 	return (0);
 }

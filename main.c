@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:25:23 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 22:52:38 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:09:23 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	main_exec(t_listock *ls, char *str, t_stock *sts, t_gc **ad)
 	ls->tmp = list(tokener(str, ad), &(ls->head), ad);
 	join_rd_del(&(ls->tmp), ad);
 	ls->liste = parse(ls->tmp, ls, ad);
-	if (!g_end_heredoc)
+	if (!g_end_heredoc && ls->liste)
 		execution(ls->liste, ls->my_env, ls, ad);
 	else if (g_end_heredoc)
 		sts->exit_status = 1;
@@ -45,8 +45,8 @@ void	main_null_free(char *str, char *line, t_listock *ls)
 
 void	string_history_rdln(char **str, char *line, t_gc **ad)
 {
+	add_history(line);
 	*str = no_space_beg_end(line, ad);
-	add_history(*str);
 }
 
 t_listock	*allocate_ls(t_listock **ls, t_stock *sts, t_list **lst, t_gc **ad)

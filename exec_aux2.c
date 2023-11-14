@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:06:22 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 23:09:48 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:52:14 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exve_path_error(t_parse *cmd, t_listock *ls, char **env)
 {
-	if (execve(cmd->data[0], cmd->data, env) == -1)
+	if (cmd->data[0] && execve(cmd->data[0], cmd->data, env) == -1)
 	{
 		perror("execve");
 		exit (127);
@@ -24,7 +24,7 @@ void	exve_path_error(t_parse *cmd, t_listock *ls, char **env)
 
 void	command(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 {
-	if (!valid_path(split_path(env, ad), cmd->data[0], ad))
+	if (cmd->data[0] && !valid_path(split_path(env, ad), cmd->data[0], ad))
 	{
 		ft_putstr_fd("command not found\n", 2);
 		exit (127);
@@ -32,7 +32,7 @@ void	command(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 	}
 	else
 	{
-		if (execve(valid_path(split_path(env, ad), \
+		if (cmd->data[0] && execve(valid_path(split_path(env, ad), \
 		cmd->data[0], ad), cmd->data, env) == -1)
 		{
 			perror("execve");
