@@ -6,13 +6,13 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:59:07 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 11:59:08 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:05:47 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	env_list(t_list **lst, char **environnement)
+void	env_list(t_list **lst, char **environnement, t_gc **ad)
 {
 	int		i;
 	char	**dst;
@@ -21,14 +21,14 @@ void	env_list(t_list **lst, char **environnement)
 	*lst = NULL;
 	while (environnement[i])
 	{
-		dst = split_souad(environnement[i]);
-		ft_lstadd_back1(lst, ft_lstnew1(dst[0], dst[1]));
+		dst = split_souad(environnement[i], ad);
+		ft_lstadd_back1(lst, ft_lstnew1(dst[0], dst[1], ad));
 		i++;
 	}
-	the_pwd_print(lst);
-	shlvl_increment(lst);
-	the_eight_dash(lst);
-	the_oldpwd_print(lst);
+	the_pwd_print(lst, ad);
+	shlvl_increment(lst, ad);
+	the_eight_dash(lst, ad);
+	the_oldpwd_print(lst, ad);
 }
 
 void	env(int ac, char **av, t_list **lst, t_parse	**ls)

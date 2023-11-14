@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:18:58 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:54:40 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/11/14 09:42:38 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	cd_aux(char **av, t_stock *sts, int *flag)
 		*flag = cd_auxiliaire(av, sts);
 }
 
-void	cd_aux2(char *c, char **n)
+void	cd_aux2(char *c, char **n, t_gc **ad)
 {
-	*n = ft_strjoin(c, "/..");
+	*n = ft_strjoin(c, "/..", ad);
 	perrorat();
 }
 
-void	ft_cd(t_list *lst, char *pwd, char **av, t_stock *sts)
+void	ft_cd(char *pwd, char **av, t_listock *ls, t_gc **ad)
 {
 	char	newpwd[PATH_MAX];
 	char	currentdir[PATH_MAX];
@@ -40,16 +40,16 @@ void	ft_cd(t_list *lst, char *pwd, char **av, t_stock *sts)
 	(void)pwd;
 	flag = 0;
 	n = newpwd;
-	c = ft_getenv(lst, "PWD");
+	c = ft_getenv(*(ls->lst), "PWD");
 	if (!c)
 	{
 		c = getcwd(NULL, 0);
-		ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(c));
+		ft_lstadd_back22(ad, ft_lstnew22(c));
 	}
 	getcwd(currentdir, PATH_MAX);
-	cd_aux(av, sts, &flag);
+	cd_aux(av, ls->sts, &flag);
 	if (!getcwd(newpwd, PATH_MAX))
-		cd_aux2(c, &n);
+		cd_aux2(c, &n, ad);
 	if (flag)
-		(update_pwd_cd(lst, n), update_oldpwd_cd(lst, c));
+		(update_pwd_cd(*(ls->lst), n, ad), update_oldpwd_cd(*(ls->lst), c, ad));
 }

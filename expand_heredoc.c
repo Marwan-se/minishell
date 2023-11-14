@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:49 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:56 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:36:26 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	flag_heredoc_quote(char	*str, t_stock *sts)
 	}
 }
 
-char	*expand_heredoc(char *input, t_listock *ls)
+char	*expand_heredoc(char *input, t_listock *ls, t_gc **ad)
 {
 	t_variables	var;
 	char		variable_name[MAX_ENV_NAME_SIZE];
@@ -59,15 +59,16 @@ char	*expand_heredoc(char *input, t_listock *ls)
 	var.result = malloc(MAX_ENV_VAR_SIZE * 2 + 1);
 	if (!var.result)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(var.result));
+	ft_lstadd_back22(ad, ft_lstnew22(var.result));
 	var.res_ptr = var.result;
+	ls->input = &input;
 	while (*input)
 	{
 		if (is_valid(input))
 		{
 			input++ ;
 			fill_stack_var(&var, &input, variable_name);
-			handle_variable(&input, variable_name, ls, &var.res_ptr);
+			handle_variable(variable_name, ls, &var.res_ptr, ad);
 		}
 		else if (quote_after_dollar(input))
 			input++;

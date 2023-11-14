@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:10:00 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 15:10:38 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 23:46:43 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,33 @@ void	dup_close(int arr0, int arr1)
 	close(arr0);
 }
 
-void	exec_cmd_pip(t_parse *cmd, char **env, t_listock *ls)
+void	exec_cmd_pip(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 {
 	if (cmd->data[0][0] == '/')
 		exve_path_error(cmd, ls, env);
 	else
-		command(cmd, env, ls);
+		command(cmd, env, ls, ad);
 }
 
-void	exec_cmd_single(t_parse *cmd, char **env, t_listock *ls, t_exp **exp)
+void	exec_cmd_single(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 {
 	int	uid;
 
+	protect();
 	uid = fork();
 	if (uid == 0)
-		single_child_prc(cmd, exp, env, ls);
+	{
+		if (ls->size > 1)
+			if (builtin2(cmd, ls, ad))
+				exit (ls->sts->exit_status);
+		single_child_prc(cmd, env, ls, ad);
+	}
 	else if (uid == -1)
 		perrorthefork();
 }
 
-void	exec_built(t_parse *cmd, t_listock *ls)
+void	exec_built(t_parse *cmd, t_listock *ls, t_gc **ad)
 {
-	if (builtin2(cmd, ls))
+	if (builtin2(cmd, ls, ad))
 		return (execute_signals());
 }

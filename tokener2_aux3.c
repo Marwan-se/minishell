@@ -6,13 +6,13 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:34:51 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 15:35:41 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:13:38 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	list_join_word(t_cmd **lst)
+void	list_join_word(t_cmd **lst, t_gc **ad)
 {
 	t_cmd	*tempr;
 
@@ -22,7 +22,7 @@ void	list_join_word(t_cmd **lst)
 		while ((*lst) && ((*lst)->type == word || \
 			(*lst)->type == dbl_quotes || (*lst)->type == sgl_quotes))
 		{
-			join_words(lst);
+			join_words(lst, ad);
 		}
 		if ((*lst))
 			(*lst) = (*lst)->next;
@@ -90,9 +90,9 @@ void	list_del_rd(t_cmd **lst)
 	*lst = tmpr;
 }
 
-void	join_rd_del(t_cmd **lst)
+void	join_rd_del(t_cmd **lst, t_gc **ad)
 {
-	list_join_word(lst);
+	list_join_word(lst, ad);
 	list_del_spaces(lst);
 	list_rd_herdc(*lst);
 	list_del_rd(lst);

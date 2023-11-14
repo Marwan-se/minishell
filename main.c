@@ -6,22 +6,22 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:25:23 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:23:14 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:52:38 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	main_exec(t_listock *ls, t_list *lst, char *str, t_stock *sts)
+void	main_exec(t_listock *ls, char *str, t_stock *sts, t_gc **ad)
 {
-	ls->my_env = join_name_and_value(lst);
-	str = expand_variables(str, ls);
+	ls->my_env = join_name_and_value(*(ls->lst), ad);
+	str = expand_variables(str, ls, ad);
 	flag_heredoc_quote(str, sts);
-	ls->tmp = list(tokener(str), &(ls->head));
-	join_rd_del(&(ls->tmp));
-	ls->liste = parse(ls->tmp, ls);
+	ls->tmp = list(tokener(str, ad), &(ls->head), ad);
+	join_rd_del(&(ls->tmp), ad);
+	ls->liste = parse(ls->tmp, ls, ad);
 	if (!g_end_heredoc)
-		execution(ls->liste, ls->my_env, &(ls->exp), ls);
+		execution(ls->liste, ls->my_env, ls, ad);
 	else if (g_end_heredoc)
 		sts->exit_status = 1;
 	while (ls->liste)
@@ -39,24 +39,22 @@ void	main_null_free(char *str, char *line, t_listock *ls)
 	ls->tmp = NULL;
 	ls->head = NULL;
 	ls->liste = NULL;
-	//free (line);
-	//free (str);
 	(void)str;
 	(void)line;
 }
 
-void	string_history_rdln(char **str, char *line)
+void	string_history_rdln(char **str, char *line, t_gc **ad)
 {
-	*str = no_space_beg_end(line);
+	*str = no_space_beg_end(line, ad);
 	add_history(*str);
 }
 
-t_listock	*allocate_ls(t_listock **ls, t_stock *sts, t_list **lst)
+t_listock	*allocate_ls(t_listock **ls, t_stock *sts, t_list **lst, t_gc **ad)
 {
 	*ls = malloc(sizeof(t_listock));
 	if (!*ls)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(*ls));
+	ft_lstadd_back22(ad, ft_lstnew22(*ls));
 	(*ls)->sts = sts;
 	(*ls)->lst = lst;
 	return (*ls);
@@ -64,33 +62,28 @@ t_listock	*allocate_ls(t_listock **ls, t_stock *sts, t_list **lst)
 
 int	main(int ac, char **av, char **env)
 {
-	char		*line;
 	t_list		*lst;
 	t_stock		sts;
 	t_listock	*ls;
-	char		*str;
+	t_gc		*ad;
 
 	lst = NULL;
-	ls = allocate_ls(&ls, &sts, &lst);
+	ad = NULL;
+	ls = allocate_ls(&ls, &sts, &lst, &ad);
 	main_init(ls, ac, av);
-	env_list(&lst, env);
-	main_sig();
+	env_list(&lst, env, &ad);
 	while (1)
 	{
 		g_end_heredoc = 0;
-		line = readline("Alexabash:$ ");
-		if (!line)
+		ls->line = readline("Alexabash:$ ");
+		if (!ls->line)
 			break ;
-		if (!*line)
+		if (!*ls->line)
 		{
-			free(line);
+			free(ls->line);
 			continue ;
 		}
-		string_history_rdln(&str, line);
-		if (!check_syntax(str, &sts))
-			main_exec(ls, lst, str, &sts);
-		main_null_free(str, line, ls);
-		free(line);
+		the_main_exec(ls, &ad);
 	}
-	ft_lstclear(&g_gg.lst_clct);
+	ft_lstclear(&ad);
 }

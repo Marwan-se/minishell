@@ -6,13 +6,13 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:22:21 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:56 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:21:04 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	**ft_split(char *str)
+char	**ft_split(char *str, t_gc **ad)
 {
 	int		i;
 	char	**src;
@@ -27,10 +27,10 @@ char	**ft_split(char *str)
 	src = malloc(sizeof(char *) * (ma + 1));
 	if (!src)
 		return (NULL);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(src));
+	ft_lstadd_back22(ad, ft_lstnew22(src));
 	while (sh < ma)
 	{
-		src[sh] = ft_get_next_word((char *) str, ':', &i);
+		src[sh] = ft_get_next_word((char *) str, ':', &i, ad);
 		if (!src[sh])
 			return (free_all(src, sh));
 		sh++;
@@ -39,7 +39,7 @@ char	**ft_split(char *str)
 	return (src);
 }
 
-char	*path_env(char	**env)
+char	*path_env(char	**env, t_gc **ad)
 {
 	int		i;
 	int		flag;
@@ -57,24 +57,24 @@ char	*path_env(char	**env)
 		i++;
 	}
 	if (flag)
-		path = ft_substr(env[i], 5, ft_strlen1(env[i]) - 5);
+		path = ft_substr(env[i], 5, ft_strlen1(env[i]) - 5, ad);
 	else
 		path = NULL;
 	return (path);
 }
 
-char	**split_path(char **env)
+char	**split_path(char **env, t_gc **ad)
 {
 	char	**path;
 
-	if (path_env(env))
-		path = ft_split(path_env(env));
+	if (path_env(env, ad))
+		path = ft_split(path_env(env, ad), ad);
 	else
 		path = NULL;
 	return (path);
 }
 
-char	*valid_path(char	**paths, char	*str)
+char	*valid_path(char	**paths, char	*str, t_gc **ad)
 {
 	int		i;
 	char	*temp;
@@ -82,8 +82,8 @@ char	*valid_path(char	**paths, char	*str)
 	i = 0;
 	while (paths[i])
 	{
-		temp = ft_strjoin(paths[i], "/");
-		temp = ft_strjoin(temp, str);
+		temp = ft_strjoin(paths[i], "/", ad);
+		temp = ft_strjoin(temp, str, ad);
 		if (!access(temp, F_OK))
 			break ;
 		i++;

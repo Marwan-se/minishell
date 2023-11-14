@@ -6,13 +6,13 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:25:22 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:08:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:19:35 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*ft_strdup1(const char *s)
+char	*ft_strdup1(const char *s, t_gc **ad)
 {
 	int		i;
 	char	*src;
@@ -22,7 +22,7 @@ char	*ft_strdup1(const char *s)
 	dst = malloc(sizeof(char) * (ft_strlen1(src) + 1));
 	if (dst == NULL)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(dst));
+	ft_lstadd_back22(ad, ft_lstnew22(dst));
 	i = 0;
 	while (src[i])
 	{
@@ -33,7 +33,7 @@ char	*ft_strdup1(const char *s)
 	return (dst);
 }
 
-char	*no_space_beg_end(char	*str)
+char	*no_space_beg_end(char	*str, t_gc **ad)
 {
 	int		i;
 	int		j;
@@ -50,14 +50,15 @@ char	*no_space_beg_end(char	*str)
 	while (len > j && (str[len - 1] == '\t' || str[len - 1] == ' '))
 		len--;
 	if (len >= j)
-		dst = ft_strndup(&str[j], len - j);
+		dst = ft_strndup(&str[j], len - j, ad);
 	return (dst);
 }
 
-void	ft_reopen(void)
+void	ft_reopen(char *str)
 {
 	int	fd;
 
+	free_me(str);
 	if (ttyname(0) == 0)
 	{
 		fd = open(ttyname(1), O_RDONLY);
@@ -81,4 +82,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+void	free_me(char *str)
+{
+	if (str)
+		free(str);
 }

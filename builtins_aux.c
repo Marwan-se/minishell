@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:25:04 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:26:39 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 09:42:22 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	handle_echo(char **str, t_parse *ls, t_listock *lss)
 	ft_echo(str, &ls, lss->sts);
 }
 
-void	handle_export(char **str, t_exp **exp, t_listock *lss, t_parse *ls)
+void	handle_export(char **str, t_listock *lss, t_parse *ls, t_gc **ad)
 {
-	if (env_updates(str, lss) == 2 && ls->data[1] == NULL)
-		export1(*exp, *(lss->lst), &ls);
+	if (env_updates(str, lss, ad) == 2 && ls->data[1] == NULL)
+		export1(lss->exp, *(lss->lst), &ls, ad);
 }
 
-void	handle_cd(char **str, t_list **lst, char *pwd, t_listock *lss)
+void	handle_cd(char **str, char *pwd, t_listock *lss, t_gc **ad)
 {
-	ft_cd(*lst, pwd, str, lss->sts);
+	ft_cd(pwd, str, lss, ad);
 }
 
-void	handle_pwd(t_listock *lss, t_parse *ls)
+void	handle_pwd(t_listock *lss, t_parse *ls, t_gc **ad)
 {
 	char	*pwd;
 
@@ -38,7 +38,7 @@ void	handle_pwd(t_listock *lss, t_parse *ls)
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
 			ft_putstr_fd("", 2);
-		ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(pwd));
+		ft_lstadd_back22(ad, ft_lstnew22(pwd));
 	}
 	pwdd(pwd, &ls);
 	lss->sts->exit_status = 0;

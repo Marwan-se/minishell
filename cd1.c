@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd1.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:59:25 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 14:19:22 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 09:42:35 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	update_pwd_cd(t_list *lst, char *NEW_PWD)
+void	update_pwd_cd(t_list *lst, char *NEW_PWD, t_gc **ad)
 {
 	t_list	*tmp;
 
@@ -22,16 +22,16 @@ void	update_pwd_cd(t_list *lst, char *NEW_PWD)
 		if (!ft_strcmp(tmp->name, "PWD"))
 		{
 			tmp->value = NULL;
-			tmp->value = ft_strdup1(NEW_PWD);
+			tmp->value = ft_strdup1(NEW_PWD, ad);
 			break ;
 		}
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		ft_lstadd_back1(&lst, ft_lstnew1("PWD", ft_strdup1(NEW_PWD)));
+		ft_lstadd_back1(&lst, ft_lstnew1("PWD", ft_strdup1(NEW_PWD, ad), ad));
 }
 
-void	update_oldpwd_cd(t_list *lst, char *currentDir)
+void	update_oldpwd_cd(t_list *lst, char *currentDir, t_gc **ad)
 {
 	t_list	*tmp;
 
@@ -41,13 +41,14 @@ void	update_oldpwd_cd(t_list *lst, char *currentDir)
 		if (!ft_strcmp(tmp->name, "OLDPWD"))
 		{
 			tmp->value = NULL;
-			tmp->value = ft_strdup1(currentDir);
+			tmp->value = ft_strdup1(currentDir, ad);
 			break ;
 		}
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		ft_lstadd_back1(&lst, ft_lstnew1("OLDPWD", ft_strdup1(currentDir)));
+		ft_lstadd_back1(&lst, ft_lstnew1("OLDPWD", \
+		ft_strdup1(currentDir, ad), ad));
 }
 
 int	cd_auxiliaire(char **av, t_stock *sts)

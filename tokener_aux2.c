@@ -6,60 +6,60 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:43:58 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 16:09:02 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:51:13 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	handlewhitespaces(char *str, int *i, char **dst, t_tok *tokn)
+void	handlewhitespaces(char *str, char **dst, t_tok *tokn, t_gc **ad)
 {
-	tokn->k = *i;
-	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
-		(*i)++;
-	dst[tokn->j] = ft_strdup1(" ");
+	tokn->k = tokn->i;
+	while (str[tokn->i] && (str[tokn->i] == ' ' || str[tokn->i] == '\t'))
+		(tokn->i)++;
+	dst[tokn->j] = ft_strdup1(" ", ad);
 	(tokn->j)++;
 	tokn->flag = 0;
 }
 
-void	regchars(char *str, int *i, char **dst, t_tok *tokn)
+void	regchars(char *str, char **dst, t_tok *tokn, t_gc **ad)
 {
-	tokn->k = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && \
-	str[*i] != '<' && str[*i] != '>' && str[*i] != '|' && \
-	str[*i] != '\'' && str[*i] != '"')
-		(*i)++;
-	dst[tokn->j] = ft_strndup(&str[tokn->k], *i - tokn->k);
+	tokn->k = tokn->i;
+	while (str[tokn->i] && str[tokn->i] != ' ' && str[tokn->i] != '\t' && \
+	str[tokn->i] != '<' && str[tokn->i] != '>' && str[tokn->i] != '|' && \
+	str[tokn->i] != '\'' && str[tokn->i] != '"')
+		(tokn->i)++;
+	dst[tokn->j] = ft_strndup(&str[tokn->k], tokn->i - tokn->k, ad);
 	(tokn->j)++;
 	tokn->flag = 0;
 }
 
-void	hndlipipe(char *str, int *i, char **dst, t_tok *tokn)
+void	hndlipipe(char *str, char **dst, t_tok *tokn, t_gc **ad)
 {
-	tokn->k = *i;
-	while (str[*i] && str[*i] == '|')
-		(*i)++;
-	dst[tokn->j] = ft_strndup(&str[tokn->k], *i - tokn->k);
+	tokn->k = tokn->i;
+	while (str[tokn->i] && str[tokn->i] == '|')
+		(tokn->i)++;
+	dst[tokn->j] = ft_strndup(&str[tokn->k], tokn->i - tokn->k, ad);
 	(tokn->j)++;
 	tokn->flag = 0;
 }
 
-void	handleinput(char *str, int *i, char **dst, t_tok *tokn)
+void	handleinput(char *str, char **dst, t_tok *tokn, t_gc **ad)
 {
-	tokn->k = *i;
-	while (str[*i] && str[*i] == '<')
-		(*i)++;
-	dst[tokn->j] = ft_strndup(&str[tokn->k], *i - tokn->k);
+	tokn->k = tokn->i;
+	while (str[tokn->i] && str[tokn->i] == '<')
+		(tokn->i)++;
+	dst[tokn->j] = ft_strndup(&str[tokn->k], tokn->i - tokn->k, ad);
 	(tokn->j)++;
 	tokn->flag = 0;
 }
 
-void	handle_output(char *str, int *i, char **dst, t_tok *tokn)
+void	handle_output(char *str, char **dst, t_tok *tokn, t_gc **ad)
 {
-	tokn->k = *i;
-	while (str[*i] && str[*i] == '>')
-		(*i)++;
-	dst[tokn->j] = ft_strndup(&str[tokn->k], *i - tokn->k);
+	tokn->k = tokn->i;
+	while (str[tokn->i] && str[tokn->i] == '>')
+		(tokn->i)++;
+	dst[tokn->j] = ft_strndup(&str[tokn->k], tokn->i - tokn->k, ad);
 	(tokn->j)++;
 	tokn->flag = 0;
 }

@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils3.c                                    :+:      :+:    :+:   */
+/*   utils8.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/12 15:14:17 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 19:33:38 by shadria-         ###   ########.fr       */
+/*   Created: 2023/11/13 22:22:30 by shadria-          #+#    #+#             */
+/*   Updated: 2023/11/13 23:43:47 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	case2(t_listock *ls, int j, char *str, t_gc **ad)
+void	the_main_exec(t_listock *ls, t_gc **ad)
 {
-	char	*name;
-	char	*value;
+	string_history_rdln(&(ls->str), ls->line, ad);
+	if (!check_syntax(ls->str, ls->sts))
+		main_exec(ls, ls->str, ls->sts, ad);
+	main_null_free(ls->str, ls->line, ls);
+	free(ls->line);
+}
 
-	j = 0;
-	while (str[j] && str[j] != '+')
-		j++;
-	if (str[j] == '+' && str[j + 1] == '=')
-	{
-		name = ft_strndup(str, j, ad);
-		value = ft_strdup1(str + j + 2, ad);
-		env_update2(ls, name, value, ad);
-	}
-	else
-	{
-		name = ft_strdup1(str, ad);
-		env_update3(ls, name, ad);
-	}
+void	sigg_heredoc(void)
+{
+	protect();
+	signal(SIGINT, sig_close);
+}
+
+void	quit_handler(char *executable)
+{
+	protect();
+	if (ft_strcmp(executable, "./minishell"))
+		signal(SIGQUIT, quit_fct);
 }

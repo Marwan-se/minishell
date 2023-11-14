@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:38 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:56 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:36:45 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,18 @@ void	check_after_heredoc(char	*input, int	*flag, int	*flag_word)
 	}
 }
 
-void	add_for_norm(char **inputee, t_variables *var, t_listock *ls)
+void	add_for_norm(char **inputee, t_variables *var, t_listock *ls, t_gc **ad)
 {
 	char	*input;
 	char	variable_name[MAX_ENV_NAME_SIZE];
 
 	input = *inputee;
+	ls->input = &input;
 	if (is_valid(input) && !var->flag_to_heredoc)
 	{
 		input++ ;
 		fill_stack_var(var, &input, variable_name);
-		handle_variable(&input, variable_name, ls, &var->res_ptr);
+		handle_variable(variable_name, ls, &var->res_ptr, ad);
 	}
 	else if (quote_after_dollar(input) && !var->flag_to_heredoc)
 		input++;
@@ -69,14 +70,14 @@ void	add_for_norm(char **inputee, t_variables *var, t_listock *ls)
 	*inputee = input;
 }
 
-char	*expand_variables(char *input, t_listock *ls)
+char	*expand_variables(char *input, t_listock *ls, t_gc **ad)
 {
 	t_variables	var;
 
 	var.result = malloc(MAX_ENV_VAR_SIZE * 2 + 1);
 	if (!var.result)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(var.result));
+	ft_lstadd_back22(ad, ft_lstnew22(var.result));
 	var.res_ptr = var.result;
 	var.flag = 0;
 	var.flag_to_heredoc = 0;
@@ -85,7 +86,7 @@ char	*expand_variables(char *input, t_listock *ls)
 	{
 		handle_flags((char **)&input, &var.flag);
 		if (var.flag != 1)
-			add_for_norm(&input, &var, ls);
+			add_for_norm(&input, &var, ls, ad);
 		else
 			*var.res_ptr++ = *input++;
 	}

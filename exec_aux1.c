@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:59:29 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 15:02:31 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:13:03 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	quit_fct(int sig)
 		printf("Quit : 3\n");
 }
 
-void	rd_exec_2(t_parse *cmd, t_listock *ls, t_exp **exp)
+void	rd_exec_2(t_parse *cmd, t_listock *ls, t_gc **ad)
 {
 	if (cmd->output == -1)
 	{
@@ -66,11 +66,11 @@ void	rd_exec_2(t_parse *cmd, t_listock *ls, t_exp **exp)
 	}
 	else if (cmd->input > 0)
 		dup2(cmd->input, 0);
-	if (builtin(cmd, exp, ls))
+	if (builtin(cmd, ls, ad))
 		exit (ls->sts->exit_status);
 }
 
-void	rd_exec1(t_parse *cmd, t_listock *ls, t_exp **exp, int arr)
+void	rd_exec1(t_parse *cmd, t_listock *ls, int arr, t_gc **ad)
 {
 	if (cmd->output == -1)
 	{
@@ -88,6 +88,6 @@ void	rd_exec1(t_parse *cmd, t_listock *ls, t_exp **exp, int arr)
 	}
 	else if (cmd->input > 0)
 		dup2(cmd->input, 0);
-	if (builtin(cmd, exp, ls))
+	if (builtin(cmd, ls, ad))
 		exit (ls->sts->exit_status);
 }

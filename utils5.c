@@ -6,20 +6,20 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:18:01 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:08:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:23:01 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*ft_strndup(const char *s, int n)
+char	*ft_strndup(const char *s, int n, t_gc **ad)
 {
 	int		i;
 	char	*src;
 	char	*dst;
 
 	src = (char *)s;
-	dst = ft_calloc(n + 1, sizeof(char));
+	dst = ft_calloc(n + 1, sizeof(char), ad);
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
@@ -31,7 +31,7 @@ char	*ft_strndup(const char *s, int n)
 	return (dst);
 }
 
-t_list	*ft_lstnew1(char *name, char *value)
+t_list	*ft_lstnew1(char *name, char *value, t_gc **ad)
 {
 	t_list	*head;
 
@@ -39,7 +39,7 @@ t_list	*ft_lstnew1(char *name, char *value)
 	head = malloc(sizeof(t_list));
 	if (!head)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(head));
+	ft_lstadd_back22(ad, ft_lstnew22(head));
 	head->name = name;
 	head->value = value;
 	head->next = NULL;

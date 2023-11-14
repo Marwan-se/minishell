@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:27 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:56 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:19:58 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen1(const char *s)
 	return (i);
 }
 
-t_exp	*ft_lstnew2(char *content)
+t_exp	*ft_lstnew2(char *content, t_gc **ad)
 {
 	t_exp	*head;
 
@@ -30,7 +30,7 @@ t_exp	*ft_lstnew2(char *content)
 	head = malloc(sizeof(t_exp));
 	if (!head)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(head));
+	ft_lstadd_back22(ad, ft_lstnew22(head));
 	head->content = content;
 	head->next = NULL;
 	return (head);
@@ -63,7 +63,7 @@ void	ft_lstadd_back2(t_exp **lst, t_exp *new)
 	last -> next = new;
 }
 
-char	*ft_strjoin1(char *s1, char *s2)
+char	*ft_strjoin1(char *s1, char *s2, t_gc **ad)
 {
 	int		i;
 	char	*src;
@@ -73,7 +73,7 @@ char	*ft_strjoin1(char *s1, char *s2)
 		src = malloc(sizeof(char) * (ft_strlen1(s1) + ft_strlen1(s2) + 1));
 		if (!src)
 			exit (1);
-		ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(src));
+		ft_lstadd_back22(ad, ft_lstnew22(src));
 		i = -1;
 		while (s1[++i])
 			src[i] = s1[i];

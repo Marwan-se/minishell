@@ -6,18 +6,11 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:56:36 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 22:09:37 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:14:04 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-// void	my_//free(t_list *current)
-// {
-// 	//free(current->name);
-// 	//free(current->value);
-// 	//free(current);
-// }
 
 void	delete_by_position(t_list **head, int pos)
 {

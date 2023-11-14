@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:57:03 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:08:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:20:40 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ int	lexer(char	*str)
 	return (tp.type);
 }
 
-t_cmd	*list(char **str, t_cmd	**lst)
+t_cmd	*list(char **str, t_cmd	**lst, t_gc **ad)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		(*lst) = add_back(*lst, str[i]);
+		(*lst) = add_back(*lst, str[i], ad);
 		i++;
 	}
 	return (*lst);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, t_gc **ad)
 {
 	int		i;
 	char	*src;
@@ -58,7 +58,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		src = malloc(sizeof(char) * (ft_strlen1(s1) + ft_strlen1(s2) + 1));
 		if (!src)
 			exit (1);
-		ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(src));
+		ft_lstadd_back22(ad, ft_lstnew22(src));
 		i = -1;
 		while (s1[++i])
 			src[i] = s1[i];
@@ -83,7 +83,7 @@ void	deletenode(t_cmd **head, t_cmd *lst)
 		lst->previous->next = lst->next;
 }
 
-void	join_words(t_cmd **lst)
+void	join_words(t_cmd **lst, t_gc **ad)
 {
 	char	*new_data;
 	t_cmd	*temp;
@@ -93,7 +93,7 @@ void	join_words(t_cmd **lst)
 			(*lst)->next->type == dbl_quotes || \
 			(*lst)->next->type == sgl_quotes))
 	{
-		new_data = ft_strjoin((*lst)->data, (*lst)->next->data);
+		new_data = ft_strjoin((*lst)->data, (*lst)->next->data, ad);
 		(*lst)->data = new_data;
 		temp = (*lst)->next;
 		deletenode(lst, temp);

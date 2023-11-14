@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:56:17 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 16:11:44 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:15:08 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int n, t_gc **ad)
 {
 	char	*str;
 	size_t	len;
 
 	len = ft_lenght(n);
-	str = (char *)ft_calloc((len + 1), sizeof(char));
+	str = (char *)ft_calloc((len + 1), sizeof(char), ad);
 	if (!str)
 		return (NULL);
 	if (n == 0)

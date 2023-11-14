@@ -6,28 +6,26 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:30:06 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:16:10 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:21:44 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	check_to_expand(char *str, t_listock *ls, int fd)
+void	check_to_expand(char *str, t_listock *ls, int fd, t_gc **ad)
 {
 	if (!ls->sts->quote_heredoc)
-		str = expand_heredoc(str, ls);
+		str = expand_heredoc(str, ls, ad);
 	ft_putstr_fd(str, fd);
 	ft_putstr_fd("\n", fd);
-	// free (str);
 }
 
-int	heredoca(char *line, t_listock *ls)
+int	heredoca(char *line, t_listock *ls, t_gc **ad)
 {
 	char	*str;
 	int		fd[2];
 
-	protect();
-	signal(SIGINT, sig_close);
+	sigg_heredoc();
 	pipe (fd);
 	while (1)
 	{
@@ -42,13 +40,10 @@ int	heredoca(char *line, t_listock *ls)
 			free(str);
 			continue ;
 		}
-		check_to_expand(str, ls, fd[1]);
-		if (str)
-			free(str);
+		check_to_expand(str, ls, fd[1], ad);
+		free_me(str);
 	}
-	if (str)
-		free(str);
-	ft_reopen();
+	ft_reopen(str);
 	close (fd[1]);
 	execute_signals();
 	return (fd[0]);

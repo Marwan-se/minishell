@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:45 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 16:07:06 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:33:32 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	update_result(char **res_ptr, char *value)
 	*res_ptr += ft_strlen1(value);
 }
 
-void	handle_variable(char **input, char *variable_name, \
-t_listock *ls, char **res_ptr)
+void	handle_variable(char *variable_name, \
+t_listock *ls, char **res_ptr, t_gc **ad)
 {
 	char	k;
 	char	*value;
 
-	k = (*input)[0];
+	k = (*(ls->input))[0];
 	if (k != '?')
 	{
 		value = ft_getenv(*(ls->lst), variable_name);
@@ -74,11 +74,11 @@ t_listock *ls, char **res_ptr)
 	}
 	else
 	{
-		value = ft_itoa(ls->sts->exit_status);
+		value = ft_itoa(ls->sts->exit_status, ad);
 		if (value)
 		{
 			update_result(res_ptr, value);
-			(*input)++;
+			(*(ls->input))++;
 		}
 	}
 }

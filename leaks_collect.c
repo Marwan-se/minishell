@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 22:04:39 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:17:34 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_lstclear(t_gc **lst)
 	{
 		t = temp->next;
 		free(temp->content);
-        free(temp);
+		free(temp);
 		temp = t;
 	}
 	*lst = NULL;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:50:41 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:27:24 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 09:42:26 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	builtin(t_parse *ls, t_exp **exp, t_listock *lss)
+int	builtin(t_parse *ls, t_listock *lss, t_gc **ad)
 {
 	char	**str;
 
@@ -22,11 +22,11 @@ int	builtin(t_parse *ls, t_exp **exp, t_listock *lss)
 	if (echo_combinaison(str[0]))
 		handle_echo(str, ls, lss);
 	else if (!ft_strcmp(str[0], "export") && !str[1])
-		handle_export(str, exp, lss, ls);
+		handle_export(str, lss, ls, ad);
 	else if (!ft_strcmp(str[0], "cd"))
-		handle_cd(str, lss->lst, NULL, lss);
+		handle_cd(str, NULL, lss, ad);
 	else if (pwd_combinaison(str[0]))
-		handle_pwd(lss, ls);
+		handle_pwd(lss, ls, ad);
 	else if (env_combinaison(str[0]))
 		handle_env(str, ls, lss);
 	else
@@ -34,9 +34,9 @@ int	builtin(t_parse *ls, t_exp **exp, t_listock *lss)
 	return (1);
 }
 
-void	handle_export2(char **str, t_listock *lss, t_parse *ls)
+void	handle_export2(char **str, t_listock *lss, t_parse *ls, t_gc **ad)
 {
-	if (!env_updates(str, lss) && ls->data[1])
+	if (!env_updates(str, lss, ad) && ls->data[1])
 		;
 }
 
@@ -46,7 +46,7 @@ void	handle_unset2(char **str, t_listock *lss)
 		;
 }
 
-int	builtin2(t_parse *ls, t_listock *lss)
+int	builtin2(t_parse *ls, t_listock *lss, t_gc **ad)
 {
 	char	**str;
 	char	*pwd;
@@ -55,7 +55,7 @@ int	builtin2(t_parse *ls, t_listock *lss)
 	if (!str || !str[0])
 		return (0);
 	if (!ft_strcmp(str[0], "export") && str[1])
-		handle_export2(str, lss, ls);
+		handle_export2(str, lss, ls, ad);
 	else if (!ft_strcmp(str[0], "unset"))
 		handle_unset2(str, lss);
 	else if (!ft_strcmp(str[0], "exit"))
@@ -63,8 +63,8 @@ int	builtin2(t_parse *ls, t_listock *lss)
 	else if (!ft_strcmp(str[0], "cd"))
 	{
 		pwd = getcwd(NULL, 0);
-		ft_cd(*(lss->lst), pwd, str, lss->sts);
-		ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(pwd));
+		ft_cd(pwd, str, lss, ad);
+		ft_lstadd_back22(ad, ft_lstnew22(pwd));
 	}
 	else
 		return (0);

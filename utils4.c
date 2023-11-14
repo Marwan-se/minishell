@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:16:17 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:08:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:22:53 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc(size_t	count, size_t	size)
+void	*ft_calloc(size_t	count, size_t	size, t_gc **ad)
 {
 	void	*mem;
 	size_t	size1;
@@ -35,7 +35,7 @@ void	*ft_calloc(size_t	count, size_t	size)
 	mem = (void *)malloc(size1);
 	if (!mem)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(mem));
+	ft_lstadd_back22(ad, ft_lstnew22(mem));
 	if (mem != NULL)
 		ft_bzero(mem, size1);
 	return (mem);

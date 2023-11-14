@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:34 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 22:07:05 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:10:16 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	printf_and_free(char *name, char *value)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	//free(name);
-	//free(value);
 	(void)value;
 }
 

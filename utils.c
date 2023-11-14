@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:56:28 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 16:11:43 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:14:40 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	set_cmd_data_type(t_cmd *temp, char *data)
+void	set_cmd_data_type(t_cmd *temp, char *data, t_gc **ad)
 {
 	if (data[0] == '\'')
 	{
-		temp->data = ft_substr(data, 1, ft_strlen(data) - 2);
+		temp->data = ft_substr(data, 1, ft_strlen(data) - 2, ad);
 		temp->type = sgl_quotes;
 	}
 	else if (data[0] == '"')
 	{
-		temp->data = ft_substr(data, 1, ft_strlen(data) - 2);
+		temp->data = ft_substr(data, 1, ft_strlen(data) - 2, ad);
 		temp->type = dbl_quotes;
 	}
 	else
@@ -41,18 +41,18 @@ void	set_cmd_data_type(t_cmd *temp, char *data)
 	}
 }
 
-t_cmd	*add_back(t_cmd *head, char *data)
+t_cmd	*add_back(t_cmd *head, char *data, t_gc **ad)
 {
 	t_cmd	*temp;
 	t_cmd	*tp;
 
 	tp = head;
-	temp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	temp = (t_cmd *)ft_calloc(1, sizeof(t_cmd), ad);
 	if (!temp)
 		return (NULL);
 	temp->next = NULL;
 	temp->previous = NULL;
-	set_cmd_data_type(temp, data);
+	set_cmd_data_type(temp, data, ad);
 	if (!head)
 		head = temp;
 	else

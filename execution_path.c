@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:59:03 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:11:56 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:19:22 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**free_all(char **tab, int i)
 	return (NULL);
 }
 
-char	*ft_get_next_word(char *str, char separator, int *i)
+char	*ft_get_next_word(char *str, char separator, int *i, t_gc **ad)
 {
 	int		index;
 	char	*src;
@@ -83,7 +83,7 @@ char	*ft_get_next_word(char *str, char separator, int *i)
 			* sizeof(char));
 	if (!src)
 		return (NULL);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(src));
+	ft_lstadd_back22(ad, ft_lstnew22(src));
 	while (str[index] && str[index] != separator)
 	{
 		src[j] = str[index];

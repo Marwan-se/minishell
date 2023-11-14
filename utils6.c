@@ -6,13 +6,13 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:20:13 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:08:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:23:17 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len, t_gc **ad)
 {
 	char			*sub;
 	unsigned int	to_start;
@@ -25,13 +25,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub = malloc(newlen + 1);
 	if (!sub)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(sub));
+	ft_lstadd_back22(ad, ft_lstnew22(sub));
 	if (sub != NULL)
 		ft_strlcpy(sub, s + to_start, newlen + 1);
 	return (sub);
 }
 
-t_parse	*ft_lstnew(char **content, int in, int out)
+t_parse	*ft_lstnew(char **content, int in, int out, t_gc **ad)
 {
 	t_parse	*head;
 
@@ -39,7 +39,7 @@ t_parse	*ft_lstnew(char **content, int in, int out)
 	head = malloc(sizeof(t_parse));
 	if (!head)
 		exit (1);
-	ft_lstadd_back22(&g_gg.lst_clct, ft_lstnew22(head));
+	ft_lstadd_back22(ad, ft_lstnew22(head));
 	head->input = in;
 	head->output = out;
 	head->data = content;
