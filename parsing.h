@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:02 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 09:54:09 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:38:21 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h> 
-
-// ____________________
-// # define GREEN			"\033[1;32m"
-// # define DEFAULT		"\033[0;37m"
-//#define malloc(x)     NULL
-// ____________________
 
 enum e_types{
 	pip,

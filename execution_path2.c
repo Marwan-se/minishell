@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_path2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:22:21 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:57 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:23:48 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_split(char *str, t_gc **ad)
 	ma = ft_count_words((char *)str, ':');
 	src = malloc(sizeof(char *) * (ma + 1));
 	if (!src)
-		return (NULL);
+		exit (1);
 	ft_lstadd_back22(ad, ft_lstnew22(src));
 	while (sh < ma)
 	{

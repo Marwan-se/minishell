@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leaks_collect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 22:04:39 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 09:53:41 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:49:30 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_gc	*ft_lstnew22(void *content)
 	head = NULL;
 	head = malloc(sizeof(t_gc));
 	if (!head)
-		return (NULL);
+		exit (1);
 	head->content = content;
 	head->next = NULL;
 	return (head);

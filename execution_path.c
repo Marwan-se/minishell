@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:59:03 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 09:52:53 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:23:33 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_get_next_word(char *str, char separator, int *i, t_gc **ad)
 	src = malloc ((ft_get_word_lenght(str, separator, index) + 1)
 			* sizeof(char));
 	if (!src)
-		return (NULL);
+		exit (1);
 	ft_lstadd_back22(ad, ft_lstnew22(src));
 	while (str[index] && str[index] != separator)
 	{
