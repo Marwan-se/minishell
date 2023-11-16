@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:18 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 19:35:45 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:56:10 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,14 @@ void	env_export(char *str, int j, t_listock *ls, t_gc **ad)
 	if (j && str[j] == '=' && str[j - 1] != '+')
 		case1(ls, j, str, ad);
 	else
+	{
+		if (str[0] == '+')
+		{
+			ft_putstr_fd("error in export\n", 2);
+			return ;
+		}
 		case2(ls, j, str, ad);
+	}
 }
 
 int	env_updates(char **av, t_listock *ls, t_gc **ad)

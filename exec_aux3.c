@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aux3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:10:00 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 23:46:43 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:03:42 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exec_cmd_pip(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 {
 	if (cmd->data[0][0] == '/')
 		exve_path_error(cmd, ls, env);
+	else if (builtin2(cmd, ls, ad))
+		exit (ls->sts->exit_status);
 	else
 		command(cmd, env, ls, ad);
 }

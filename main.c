@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:25:23 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:50:28 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:58:03 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int	main(int ac, char **av, char **env)
 	ad = NULL;
 	ls = allocate_ls(&ls, &sts, &lst, &ad);
 	main_init(ls, ac, av);
-	g_end_heredoc = 0;
 	env_list(&lst, env, &ad);
 	while (1)
 	{
+		g_end_heredoc = 0;
 		ls->line = readline("Alexabash:$ ");
 		if (!ls->line)
 			break ;

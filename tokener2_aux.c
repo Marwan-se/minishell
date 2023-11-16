@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokener2_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:27:22 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 21:37:26 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:59:18 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	parse_aux(int *fd, t_cmd *tmp, t_listock *ls, t_gc **ad)
 		}
 		else
 		{
-			if (!(ls->flagg))
+			if (!(ls->flagg) && g_end_heredoc != 1)
 				fd_fct(fd, &tmp, ls, ad);
 			if (tmp)
 			{

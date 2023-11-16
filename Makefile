@@ -1,5 +1,5 @@
 CC := cc 
-CFLAGS := -Wall -Wextra -Werror -g 
+CFLAGS := -Wall -Wextra -Werror
 INCLUDE := parsing.h
 SRCS := cd1.c echo1.c env_to_char.c env1.c env2.c execution_path.c execution.c exit1.c \
 expand_heredoc.c expand_utils.c expand.c export_syntax.c export_utils.c export_utils2.c export1.c pwd1.c signals.c syntax_analyser.c \
@@ -15,7 +15,7 @@ LINK = $(shell brew --prefix readline)/include
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CC) $(CFLAGS)$^ -o $@ -lreadline -L $(COMP)
+	$(CC) $(CFLAGS) $^ -o $@ -lreadline -L $(COMP)
 
 %.o: %.c $(INCLUDE)
 	$(CC) $(CFLAGS) -I $(LINK) -c  $< -o $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:59 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:33:25 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:56:16 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	execution(t_parse *cmd, char **env, t_listock *ls, t_gc **ad)
 	}
 	if (ls->size == 1)
 		if (builtin2(cmd, ls, ad))
-			return (execute_signals());
+			return (dup_close_wait(in, ls), execute_signals());
 	exec_cmd_single(cmd, env, ls, ad);
 	dup_close_wait(in, ls);
 }

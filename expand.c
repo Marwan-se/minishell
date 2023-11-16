@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:58:38 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/13 20:36:45 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:27:44 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	add_for_norm(char **inputee, t_variables *var, t_listock *ls, t_gc **ad)
 		fill_stack_var(var, &input, variable_name);
 		handle_variable(variable_name, ls, &var->res_ptr, ad);
 	}
-	else if (quote_after_dollar(input) && !var->flag_to_heredoc)
+	else if (quote_after_dollar(input) && !var->flag_to_heredoc && !var->flag)
 		input++;
 	else
 	{

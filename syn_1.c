@@ -6,7 +6,7 @@
 /*   By: shadria- <shadria-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 15:54:30 by shadria-          #+#    #+#             */
-/*   Updated: 2023/11/14 13:41:38 by shadria-         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:27:01 by shadria-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	check_syntax(char	*str, t_stock *sts)
 {
 	if (!check_quotes(str, 0) || \
 	pip_after_pip(str) || check_end_op_pipe(str) || \
-	check_beg_pip(str) || slash_vgl(str) || op_before_pip(str) || \
+	check_beg_pip(str) || op_before_pip(str) || \
 	op_op_no_space(str) || op_op_space(str))
 		return (sts->exit_status = 258, \
 		ft_putstr_fd("erreur syntaxique\n", 2), 1);
